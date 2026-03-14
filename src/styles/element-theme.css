@@ -1,0 +1,41 @@
+/* element-theme.css */
+:root {
+  /* Переопределение цветов Element Plus через ваши CSS переменные */
+  --el-color-primary: var(--primary-500);
+  --el-color-primary-light-3: var(--primary-400);
+  --el-color-primary-light-5: var(--primary-300);
+  --el-color-primary-light-7: var(--primary-200);
+  --el-color-primary-light-8: var(--primary-100);
+  --el-color-primary-light-9: var(--primary-50);
+  --el-color-primary-dark-2: var(--primary-700);
+  
+  --el-color-success: var(--success-500, #10b981);
+  --el-color-warning: var(--warning-500, #f59e0b);
+  --el-color-danger: var(--error-500, #ef4444);
+  --el-color-error: var(--error-500, #ef4444);
+  --el-color-info: var(--info-500, #3b82f6);
+  
+  /* Дополнительные настройки */
+  --el-border-radius-base: var(--radius-md, 4px);
+  --el-font-size-base: var(--font-size-base, 14px);
+  
+  /* Цвета фона и текста */
+  --el-bg-color: var(--bg-secondary, #ffffff);
+  --el-text-color-primary: var(--text-primary, #303133);
+  --el-text-color-regular: var(--text-secondary, #606266);
+  --el-border-color: var(--border-light, #dcdfe6);
+
+}
+
+/* Темная тема для Element Plus */
+.dark {
+  --el-bg-color: var(--bg-primary, #141414);
+  --el-text-color-primary: var(--text-primary, #E5EAF3);
+  --el-text-color-regular: var(--text-secondary, #CFD3DC);
+  --el-border-color: var(--border-light, #363637);
+}
+
+.el-button:not(.el-button--primary):not(.el-button--success):not(.el-button--warning):not(.el-button--danger):not(.el-button--info):not(.el-button--error) {
+--el-button-hover-bg-color: var(--primary-100);
+}
+ 
