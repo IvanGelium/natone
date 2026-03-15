@@ -1,6 +1,8 @@
 import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
+const title = 'This'
+
 const codeBase = `
 class Person{
   #name
@@ -17,8 +19,8 @@ class Person{
   this.#secret = newSecret 
   }
 }
-const person = new Person(‘Яна’, ‘Любит пиццу с ананасами’)
-person.sayName() //’Выведет в консоль Яна’  
+const person = new Person("Яна", "Любит пиццу с ананасами")
+person.sayName() //"Выведет в консоль Яна" 
 `
 
 const codeSmall = `
@@ -31,7 +33,7 @@ sayName: () => {...}
 `
 
 const paragraph = `
-### this 
+## ${title} 
 
 **this** - это специальное ключевое слово доступное в контексте класса,
 для обращения к экземпляру этого класса, и в контексте объекта,
@@ -65,6 +67,7 @@ ${codeBlock(codeSmallTwo)}
 `
 
 export const thisData = {
+  title,
   content: paragraph,
   practice: Practice,
 }

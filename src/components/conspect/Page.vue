@@ -10,7 +10,6 @@ const { content } = toRefs(props)
 
 <template>
   <div class="flex flex-col gap-4">
-    <Mdblock content="# Конспект" />
     <Mdblock :content="content" />
     <Mdblock content="# Практика" />
     <slot name="practice" />

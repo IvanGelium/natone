@@ -1,6 +1,7 @@
 import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
+const title = 'Замыкания'
 const codeBaseClosure = `
 function withClosure(specialVar) {
   return () => {
@@ -8,7 +9,7 @@ function withClosure(specialVar) {
   }
 }
 
-const closured = withClosure(‘imClosured’)
+const closured = withClosure("imClosured")
 closured() // в консоль будет выведено imClosured
 `
 
@@ -18,11 +19,11 @@ function withSecret() {
   return {
     setSecret: (newSecret) => {secret = newSecret}
     tellSecret: () => {console.log(secret)}
-  },
+  }
 }
 
 const person = withSecret()
-person.setSecret(‘beans’)
+person.setSecret("beans")
 person.tellSecret() // вывод в консоль beans
 person.secret // undefined, такого поля не существует в текущем контексте
 `
@@ -31,16 +32,16 @@ const codeClosureCarry = `
 function createLogger(logContext) {
   return (log) => {
     console.log(\`\${logContext:} \${log}\`)
-}
+  }
 }
 
-const logger = createLogger(‘Модуль сжатия файлов’)
+const logger = createLogger("Модуль сжатия файлов")
 
-logger(‘Файл имеет недопустимый формат’) 
+logger("Файл имеет недопустимый формат") 
 // Получим вывод в консоль: Модуль сжатия файлов: Файл имеет недопустимый форма
 `
 const paragraph = `
-### Замыкания 
+## ${title} 
 
 **Замыкания** - это возможность внутренней функции возвращаемой внешней функцией
 получить доступ к переменным объявленным во внешней функции.
@@ -70,6 +71,7 @@ ${codeBlock(codeClosureCarry)}
 сохранены при создание логгера. 
 `
 export const closureData = {
+  title,
   content: paragraph,
   practice: Practice,
 }

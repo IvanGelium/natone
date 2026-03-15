@@ -1,13 +1,14 @@
 import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
+const title = 'Prototype'
 const codeBase = `
 const array = []
 console.dir(array)
 `
 
 const paragraph = `
-### prototype
+## ${title}
 
 **__proto__/[[prototype]]** - это свойство любого объекта в **JS** в
 котором содержатся данные о методах этого объекта и прототип его родителя.
@@ -27,6 +28,7 @@ ${codeBlock(codeBase)}
 `
 
 export const prototypeData = {
+  title,
   content: paragraph,
   practice: Practice,
 }
