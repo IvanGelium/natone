@@ -1,5 +1,7 @@
-import { codeBlock } from '../../../../../utils'
+import { codeBlock, getGitHubLink } from '../../../../../utils'
 import Practice from './Practice.vue'
+
+const gitHubLink = getGitHubLink(import.meta.url)
 
 const title = `Type guards`
 
@@ -129,6 +131,7 @@ function assertIsAdmin(person: Admin | User): asserts person is Admin {
 `
 
 export const typeGuardsData = {
+  gitHubLink,
   title,
   content: paragraph,
   practice: Practice,

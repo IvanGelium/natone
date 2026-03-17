@@ -1,5 +1,7 @@
-import { codeBlock } from '../../../../../utils'
+import { codeBlock, getGitHubLink } from '../../../../../utils'
 import Practice from './Practice.vue'
+
+const gitHubLink = getGitHubLink(import.meta.url)
 
 const title = 'Prototype'
 const codeBase = `
@@ -28,6 +30,7 @@ ${codeBlock(codeBase)}
 `
 
 export const prototypeData = {
+  gitHubLink,
   title,
   content: paragraph,
   practice: Practice,

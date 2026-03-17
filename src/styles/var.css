@@ -105,3 +105,21 @@
   --border-medium: var(--secondary-600);
   --border-dark: var(--secondary-500);
 }
+
+:root a {
+  color: var(--primary-600);
+}
+
+:root a:visited {
+  color: var(--primary-900);
+}
+
+:root a:hover {
+  text-decoration:underline
+  
+}
+
+:root ::selection {
+  background-color: var(--primary-900);
+  color:white
+}

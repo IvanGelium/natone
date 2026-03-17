@@ -5,14 +5,16 @@ import { ElInput } from 'element-plus'
 const fieldRef = ref('')
 const debouncing = ref(false)
 
-function closureDebounce<T extends (...args: any[]) => any>(
+// Функция для инициализации debounced-версии функции
+function useClosureDebounce<T extends (...args: any[]) => any>(
   callback: T,
   time: number,
 ) {
+  // Замыкание позволяет сохранять между вызовами замыкаемой функции id таймера
   let timerId: number
   return function (this: unknown, ...args: Parameters<T>) {
     debouncing.value = true
-    clearTimeout(timerId)
+    clearTimeout(timerId) // Если таймер уже есть, очищаем его
     timerId = setTimeout(() => callback.apply(this, args), time)
   }
 }
@@ -24,7 +26,7 @@ function onlyNumberValidation(string: string): void {
   debouncing.value = false
 }
 
-const debouncedValidation = closureDebounce(onlyNumberValidation, 500)
+const debouncedValidation = useClosureDebounce(onlyNumberValidation, 500)
 </script>
 
 <template>

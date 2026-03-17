@@ -54,8 +54,8 @@ const currentPage = ref(stageOne[0].pages[0])
           {{ '<' }}
         </div> -->
         <div class="overflow-y-scroll p-4 w-full">
-          <Page :content="currentPage.content">
-            <template #practice>
+          <Page :content="currentPage.content.replace('##', '###')" :link="currentPage.gitHubLink">
+            <template v-if="currentPage.practice" #practice>
               <component :is="currentPage.practice" />
             </template>
           </Page>
