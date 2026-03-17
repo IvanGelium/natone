@@ -8,7 +8,7 @@ interface Individual extends User {...}
 interface LegalEntity extends User {...}
 type account = Individual | LegalEntity
 // аккаунт может иметь тип физического или юридического лица
-type tabName = ‘Канбан’ | ‘Список’
+type tabName = 'Канбан' | 'Список'
 // Тип tabName допускает только две конкретных строки
 `
 
@@ -25,7 +25,7 @@ type withDateData = User & {
 
 const userWithDateData: withDateData = {
 id: 15
-name: ‘ivan’
+name: 'ivan'
 createdAt: new Date()
 updatedAt: new Date()
 }
@@ -38,7 +38,7 @@ type what = string & number
 const paragraph = `
 ## ${title}
 
-Это логические операторы для типов, которые позволяют ‘расширять’ или ‘склеивать’ 
+Это логические операторы для типов, которые позволяют 'расширять' или 'склеивать' 
 типы между собой. 
 
 union имеет синтаксис **|** и служит логическим ИЛИ, объявляет что это значение 

@@ -17,7 +17,7 @@ type tupleTypeTwo = [id: number, ...data: DataType[]]
 `
 
 const codeFour = `
-type frameType = ‘Седан’ | ‘Хэтчбек’
+type frameType = 'Седан' | 'Хэтчбек'
 type fuelType = Gas | Oil
 
 interface Volume {

@@ -19,21 +19,6 @@ const stageOne = [
 ]
 
 const currentPage = ref(stageOne[0].pages[0])
-// function handleChangePage(change: 'next' | 'prev') {
-//   const max = allPages.length
-//   switch (change) {
-//     case `next`:
-//       if (currentPage.value >= max)
-//         break
-//       currentPage.value++
-//       break
-//     case 'prev':
-//       if (currentPage.value <= 1)
-//         break
-//       currentPage.value--
-//       break
-//   }
-// }
 </script>
 
 <template>
@@ -52,6 +37,7 @@ const currentPage = ref(stageOne[0].pages[0])
           <div v-for="(page, pageIndex) in chapter.pages" :key="`${pageIndex}-${page.title}`">
             <div
               class="pl-2 pr-1 py-1 hover:bg-(--primary-100) cursor-pointer rounded"
+              :class="`${currentPage.title === page.title ? 'bg-(--primary-400) hover:bg-(--primary-500) text-white' : ''}`"
               @click="currentPage = page"
             >
               - {{ page.title }}
