@@ -7,7 +7,7 @@ const isSidebarOpen = ref(false)
 <template>
   <div
 
-    class="z-99 rounded-xl bg-primary p-2 transition-all duration-200 h-full flex flex-col gap-2"
+    class="z-99 rounded-xl bg-secondary p-2 transition-all duration-200 h-full flex flex-col gap-2"
     :class="isSidebarOpen ? 'w-50' : 'w-16'"
   >
     <Buttons

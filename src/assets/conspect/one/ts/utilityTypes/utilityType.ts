@@ -6,8 +6,6 @@ const gitHubLink = getGitHubLink(import.meta.url)
 const title = `Utility Types`
 
 const paragraph = `
-## ${title}
-
 **Utility Types** - это более сложные нативные 
 типы **TS** которые используют дженерики и 
 предоставляют базовый функционал который часто необходим в работе. 

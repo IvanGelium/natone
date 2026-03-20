@@ -6,8 +6,6 @@ const gitHubLink = getGitHubLink(import.meta.url)
 const title = `Promise combinators`
 
 const paragraph = `
-## ${title}
-
 **Комбинаторы промисов** - это статические методы класса **Promise** 
 необходимые для работы с несколькими промисами. 
 

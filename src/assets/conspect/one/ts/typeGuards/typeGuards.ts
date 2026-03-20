@@ -6,8 +6,6 @@ const gitHubLink = getGitHubLink(import.meta.url)
 const title = `Type guards`
 
 const paragraph = `
-## ${title}
-
 Механизм проверки типов **TS** который проверяет код на этапе написания 
 и отслеживает потенциальные типы данных внутри конкретных блоков. 
 

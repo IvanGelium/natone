@@ -30,9 +30,9 @@ const debouncedValidation = useClosureDebounce(onlyNumberValidation, 500)
 </script>
 
 <template>
-  <div class="max-w-1/2 flex flex-col gap-10">
+  <div class="max-w-1/2 flex flex-col gap-4">
     <div>
-      <span class="text-xl">
+      <span class="text-bold">
         Debounce-функция
       </span>
       <span>

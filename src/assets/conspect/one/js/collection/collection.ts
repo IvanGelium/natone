@@ -6,8 +6,6 @@ const gitHubLink = getGitHubLink(import.meta.url)
 const title = `Работа с коллекциями`
 
 const paragraph = `
-## ${title}
-
 Коллекции данных в **JS** разделены на массивы, словари и 
 множества. Для каждого типа коллекций существуют свои подходы. 
 

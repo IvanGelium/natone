@@ -34,7 +34,7 @@ watch(() => props.content, initMarkdown)
 
 <template>
   <!-- Директива v-html вставит отрендеренный конспект -->
-  <div class="markdown-body bg-primary! text-(--text-primary)!" v-html="renderedHtml" />
+  <div class="markdown-body bg-secondary! text-(--text-primary)!" v-html="renderedHtml" />
 </template>
 
 <style scoped>
