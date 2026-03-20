@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
@@ -18,8 +17,13 @@
             Это учебный проект нацеленный на практику разработки на фронтенде.
           </p>
           <a href="https://github.com/IvanGelium/natone" target="_blank" rel="noopener noreferrer">
-            <div class="mt-6 flex flex-wrap gap-3 text-sm text-secondary">
-              <span class="rounded-full border border-primary-200 bg-secondary px-3 py-1">GitHub</span>
+            <div class="mt-6 text-sm text-secondary flex gap-2 items-center">
+              <div
+                class="rounded-full flex gap-2 border border-primary-200 bg-secondary px-3 py-1"
+              >
+                <img class="w-5 h-5" src="../assets/github.svg" alt="gh-logo">
+                <p class="font-bold">GitHub</p>
+              </div>
             </div>
           </a>
         </div>
