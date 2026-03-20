@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { pagesJs } from '../assets/conspect/one/js.ts'
 import { pagesTs } from '../assets/conspect/one/ts.ts'
-import Header from '../components/conspect/Header.vue'
 import Navigation from '../components/conspect/Navigation.vue'
 import Page from '../components/conspect/Page.vue'
+import Header from '../components/conspect/PageHeader.vue'
 
 const headerData = {
   header: 'Первый этап',
@@ -64,9 +64,6 @@ function handleChangePage(chapterIndex: number, pageIndex: number) {
 
       <main class="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-primary-200 bg-secondary shadow-sm">
         <div class="border-b border-primary-200 bg-primary-50 px-6 py-4">
-          <!-- <div class="text-sm uppercase tracking-wide text-secondary">
-            Сейчас читаем
-          </div> -->
           <div class="h-5 text-xl font-semibold">
             {{ currentPage.title }}
           </div>
