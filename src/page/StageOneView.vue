@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { pagesJs } from '../assets/conspect/one/js.ts'
 import { pagesTs } from '../assets/conspect/one/ts.ts'
-import Header from '../components/conspect/header.vue'
+import Header from '../components/conspect/Header.vue'
 import Navigation from '../components/conspect/Navigation.vue'
 import Page from '../components/conspect/Page.vue'
 
