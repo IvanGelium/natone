@@ -6,7 +6,7 @@ const title = `Event loop`
 
 const codeBase = `
 function getData(method, url) {
-console.log(‘Начали загрузку данных’)
+console.log('Начали загрузку данных')
   return fetch(url, {method})
 }
 
