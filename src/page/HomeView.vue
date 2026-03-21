@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getDocUrl } from '../utils'
 </script>
 
 <template>
@@ -16,7 +17,7 @@
           <p class="mt-4 text-lg text-secondary">
             Это учебный проект нацеленный на практику разработки на фронтенде.
           </p>
-          <a href="https://github.com/IvanGelium/natone" target="_blank" rel="noopener noreferrer">
+          <a :href="getDocUrl('')" target="_blank" rel="noopener noreferrer">
             <div class="mt-6 text-sm text-secondary flex gap-2 items-center">
               <div
                 class="rounded-full flex gap-2 border border-primary-200 bg-secondary px-3 py-1"
