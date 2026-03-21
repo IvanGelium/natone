@@ -6,7 +6,14 @@ interface Log {
   delta: string
   context: string
   content: string
-  color: string
+  color: Context
+}
+type Context = 'sync' | 'micro' | 'macro'
+type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE'
+const colorClassesRecord: Record<Context, string> = {
+  sync: 'text-blue-400',
+  micro: 'text-red-400',
+  macro: 'text-yellow-400',
 }
 
 function formatDeltaTime(deltaMs: number): string {
@@ -29,9 +36,9 @@ function formatDeltaTime(deltaMs: number): string {
 
 const logs = ref<Log[]>([])
 
-function createLog(context: 'sync' | 'micro' | 'macro', content: string): Log {
+function createLog(context: Context, content: string): Log {
   const currentTime = performance.now()
-  const lastTime = logs.value[-1]?.time || 0
+  const lastTime = logs.value.at(-1)?.time || 0
   const delta = currentTime - lastTime
 
   return {
@@ -42,11 +49,7 @@ function createLog(context: 'sync' | 'micro' | 'macro', content: string): Log {
       : context === 'micro' ? 'Микроочередь' : 'Макроочередь'
     }: `,
     content,
-    color: context === 'sync'
-      ? 'blue'
-      : context === 'micro'
-        ? 'red'
-        : 'yellow',
+    color: context,
   }
 }
 
@@ -54,7 +57,7 @@ function addLog(log: Log) {
   logs.value = [...logs.value, log]
 }
 
-function getData(method: 'GET' | 'POST' | 'PATCH' | 'DELETE', url: string) {
+function getData(method: Method, url: string) {
   addLog(createLog('sync', 'Запускаем таймер'))
   setTimeout(() => {
     addLog(createLog('macro', 'Задача из макроочереди выполнилась'))
@@ -110,7 +113,7 @@ async function handleClick() {
         <div v-for="(log, index) in logs" :key="`log-${index}`">
           <div>
             <div>
-              <span :class="`text-${log.color}-400`">
+              <span :class="`${colorClassesRecord[log.color]}`">
                 {{ log.context }}
               </span>
               <span class="text-white">
