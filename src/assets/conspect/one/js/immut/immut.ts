@@ -1,9 +1,8 @@
-import { codeBlock, getGitHubLink } from '../../../../../utils'
+import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
-const gitHubLink = getGitHubLink(import.meta.url)
-
 const title = `Immutable-подход`
+const path = 'immut'
 
 const codeBase = `
 const ar = [1,2,3]
@@ -74,7 +73,7 @@ ${codeBlock(codeBase)}
 `
 
 export const immutData = {
-  gitHubLink,
+  path,
   title,
   content: paragraph,
   practice: Practice,

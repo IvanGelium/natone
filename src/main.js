@@ -15,6 +15,10 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
+app.config.globalProperties.$getDocUrl = (path) => {
+  return `${import.meta.env.VITE_GITHUB_REPO_URL}/${path}`
+}
+
 app.use(router)
   .use(ElementPlus)
   .mount('#app')

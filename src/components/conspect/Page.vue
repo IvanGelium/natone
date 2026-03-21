@@ -15,7 +15,7 @@ const { content } = toRefs(props)
       <Mdblock content="### Практика" />
       <div>
         <slot name="practice" />
-        <div>
+        <div class="mt-2">
           <a :href="link">Ссылка на GitHub</a>
         </div>
       </div>

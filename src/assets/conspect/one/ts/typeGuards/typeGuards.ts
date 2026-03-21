@@ -1,9 +1,8 @@
-import { codeBlock, getGitHubLink } from '../../../../../utils'
+import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
-const gitHubLink = getGitHubLink(import.meta.url)
-
 const title = `Type guards`
+const path = `typeGuards`
 
 const paragraph = `
 Механизм проверки типов **TS** который проверяет код на этапе написания 
@@ -129,7 +128,7 @@ function assertIsAdmin(person: Admin | User): asserts person is Admin {
 `
 
 export const typeGuardsData = {
-  gitHubLink,
+  path,
   title,
   content: paragraph,
   practice: Practice,

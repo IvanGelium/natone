@@ -1,9 +1,8 @@
-import { codeBlock, getGitHubLink } from '../../../../../utils'
+import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
-const gitHubLink = getGitHubLink(import.meta.url)
-
 const title = `Type и interface`
+const path = `type_and_interface`
 
 const codeBase = `
 type id = number
@@ -88,7 +87,7 @@ ${codeBlock(codeFour)}
 `
 
 export const typeAndInterfaceData = {
-  gitHubLink,
+  path,
   title,
   content: paragraph,
   practice: Practice,

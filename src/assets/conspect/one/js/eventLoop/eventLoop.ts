@@ -1,8 +1,7 @@
-import { codeBlock, getGitHubLink } from '../../../../../utils'
+import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
-const gitHubLink = getGitHubLink(import.meta.url)
-
+const path = 'eventLoop'
 const title = `Event loop`
 
 const codeBase = `
@@ -88,7 +87,7 @@ _Опущены темы MutationObserver (управляет DOM, источн�
 `
 
 export const eventLoopData = {
-  gitHubLink,
+  path,
   title,
   content: paragraph,
   practice: Practice,

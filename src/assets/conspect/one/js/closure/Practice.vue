@@ -31,13 +31,19 @@ const debouncedValidation = useClosureDebounce(onlyNumberValidation, 500)
 
 <template>
   <div class="max-w-1/2 flex flex-col gap-4">
-    <div>
-      <span class="text-bold">
-        Debounce-функция
-      </span>
-      <span>
-        - функция на основе closure которая позволяет не вызывать валидацию текста каждое нажатие
-      </span>
+    <div class="flex flex-col gap-2">
+      <div>
+        Debounce-хук
+      </div>
+      <div>
+        Цель: Сделать хук, который будет дебаунсить переданную в него функцию
+      </div>
+      <div>
+        Результат: оборачиваем любую функцию в хук.
+        Внутри хука используем таймер и сохраняем id.
+        При каждом вызове функции, проверяем тикает ли текущий таймер, если да, очищаем его и вызываем новый.
+        Когда таймер кончится, вызываем функцию.
+      </div>
     </div>
     <div class=" flex flex-col gap-4">
       <div class="flex gap-2 items-center">

@@ -7,11 +7,7 @@ export function codeBlock(content: string): string {
   `
 }
 
-const regex = /[^/]+$/
-export function getGitHubLink(path: string) {
-  const repo = 'IvanGelium/natone'
-  const branch = 'main'
-  const linkPath = new URL(path).pathname.replace(regex, 'Practice.vue')
-
-  return `https://github.com/${repo}/blob/${branch}${linkPath}`
+export function getDocUrl(path: string) {
+  const base = import.meta.env.VITE_GITHUB_REPO_URL
+  return `${base}/${path}`
 }

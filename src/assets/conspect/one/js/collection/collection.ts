@@ -1,8 +1,6 @@
-import { getGitHubLink } from '../../../../../utils'
 import Practice from './Practice.vue'
 
-const gitHubLink = getGitHubLink(import.meta.url)
-
+const path = 'collection'
 const title = `Работа с коллекциями`
 
 const paragraph = `
@@ -98,7 +96,7 @@ const paragraph = `
 `
 
 export const collectionData = {
-  gitHubLink,
+  path,
   title,
   content: paragraph,
   practice: Practice,

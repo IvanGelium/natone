@@ -4,23 +4,32 @@ import { pagesTs } from '../assets/conspect/one/ts.ts'
 import Navigation from '../components/conspect/Navigation.vue'
 import Page from '../components/conspect/Page.vue'
 import Header from '../components/conspect/PageHeader.vue'
+import { getDocUrl } from '../utils.ts'
 
+const currentStage = {
+  path: 'one',
+}
 const headerData = {
   header: 'Первый этап',
   description: 'Конспекты и практические задания по базовым технологиям.',
 }
 
+const mainToConspectPath = 'blob/main/src/assets/conspect'
+
 const stageOne = [
   {
     title: 'JavaScript',
+    path: 'js',
     pages: pagesJs,
   },
   {
     title: 'TypeScript',
+    path: 'ts',
     pages: pagesTs,
   },
   {
     title: 'GIT',
+    path: 'git',
     pages: [],
   },
 ]
@@ -33,6 +42,12 @@ const navData = stageOne.map(chap => ({
 
 const currentPageIndex = ref({ chapterIndex: 0, pageIndex: 0 })
 const currentPage = computed(() => stageOne[currentPageIndex.value.chapterIndex].pages[currentPageIndex.value.pageIndex])
+
+const currentLink = computed(() => {
+  const chapter = stageOne[currentPageIndex.value.chapterIndex]
+  const page = chapter.pages[currentPageIndex.value.pageIndex]
+  return getDocUrl(`${mainToConspectPath}/${currentStage.path}/${chapter.path}/${page.path}/Practice.vue`)
+})
 
 onMounted(() => {
   const storaged = localStorage.getItem('currentPageIndex')
@@ -69,7 +84,7 @@ function handleChangePage(chapterIndex: number, pageIndex: number) {
           </div>
         </div>
         <div class="flex-1 min-h-0 overflow-y-auto px-6 py-6">
-          <Page :content="currentPage.content.replace('##', '###')" :link="currentPage.gitHubLink">
+          <Page :content="currentPage.content" :link="currentLink">
             <template v-if="currentPage.practice" #practice>
               <component :is="currentPage.practice" />
             </template>

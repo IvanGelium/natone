@@ -1,9 +1,8 @@
-import { codeBlock, getGitHubLink } from '../../../../../utils'
+import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
-const gitHubLink = getGitHubLink(import.meta.url)
-
 const title = `Generics`
+const path = `generics`
 
 const codeBase = `
 function sortArray<T>(arr: T[]): T[] {
@@ -71,7 +70,7 @@ ${codeBlock(codeThree)}
 `
 
 export const genericsData = {
-  gitHubLink,
+  path,
   title,
   content: paragraph,
   practice: Practice,

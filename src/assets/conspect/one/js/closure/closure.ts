@@ -1,7 +1,7 @@
-import { codeBlock, getGitHubLink } from '../../../../../utils'
+import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
-const gitHubLink = getGitHubLink(import.meta.url)
+const path = 'closure'
 
 const title = 'Замыкания'
 const codeBaseClosure = `
@@ -71,7 +71,7 @@ ${codeBlock(codeClosureCarry)}
 сохранены при создание логгера. 
 `
 export const closureData = {
-  gitHubLink,
+  path,
   title,
   content: paragraph,
   practice: Practice,

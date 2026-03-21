@@ -1,7 +1,6 @@
-import { getGitHubLink } from '../../../../../utils'
 import Practice from './Practice.vue'
 
-const gitHubLink = getGitHubLink(import.meta.url)
+const path = 'promiseCombinators'
 
 const title = `Promise combinators`
 
@@ -42,7 +41,7 @@ const paragraph = `
 `
 
 export const promiseCombinatorsData = {
-  gitHubLink,
+  path,
   title,
   content: paragraph,
   practice: Practice,

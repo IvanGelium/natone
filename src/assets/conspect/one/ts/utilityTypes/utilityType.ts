@@ -1,9 +1,8 @@
-import { codeBlock, getGitHubLink } from '../../../../../utils'
+import { codeBlock } from '../../../../../utils'
 import Practice from './Practice.vue'
 
-const gitHubLink = getGitHubLink(import.meta.url)
-
 const title = `Utility Types`
+const path = `utilityTypes`
 
 const paragraph = `
 **Utility Types** - это более сложные нативные 
@@ -125,7 +124,7 @@ type UserInstance = InstanceType<typeof User>
 `
 
 export const utilityTypesData = {
-  gitHubLink,
+  path,
   title,
   content: paragraph,
   practice: Practice,
