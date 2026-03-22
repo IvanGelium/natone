@@ -2,11 +2,14 @@
 import { ElButton, ElSelect, ElSlider } from 'element-plus'
 
 const isRunning = ref(false)
+const cellSize = ref(1)
 const deadzone = 2
-const ctxW = 800
-const ctxH = 600
-const ctxWD = ctxW + deadzone
-const ctxHD = ctxH + deadzone
+const ctxW = computed(() => 800 / cellSize.value)
+const ctxH = computed(() => 600 / cellSize.value)
+const ctxWD = ctxW.value + deadzone
+const ctxHD = ctxH.value + deadzone
+const canvasW = computed(() => ctxW.value * cellSize.value)
+const canvasH = computed(() => ctxH.value * cellSize.value)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const ctx = ref<CanvasRenderingContext2D | null>(null)
 const cellArray = shallowRef<Uint8Array>(new Uint8Array(ctxWD * ctxHD))
@@ -176,8 +179,23 @@ function handleRandom() {
     toggleUpdate()
   }
   const density = currentDensity.value / 100
-  for (let i = 0; i < currentCellArray.value.length; i++) {
-    currentCellArray.value[i] = Math.random() > density ? 1 : 0
+  const current = currentCellArray.value
+  for (let i = 0; i < current.length; i++) {
+    current[i] = Math.random() > density ? 1 : 0
+  }
+  render()
+}
+function handleOdd() {
+  if (!isRunning.value) {
+    toggleUpdate()
+  }
+
+  // cellArray.value.fill(0)
+  // currentCellArray.value.fill(0)
+
+  const current = currentCellArray.value
+  for (let i = 0; i < current.length; i++) {
+    current[i] = i % 2 ? 1 : 0
   }
   render()
 }
@@ -186,15 +204,19 @@ function handleCanvasClick(e: MouseEvent) {
   const rect = canvasRef.value?.getBoundingClientRect()
   if (!rect)
     return
-  const x = Math.floor(e.clientX - rect.left)
-  const y = Math.floor(e.clientY - rect.top)
-  const i = y * ctxWD + x
+  const size = cellSize.value
+  const x = Math.floor((e.clientX - rect.left) / size)
+  const y = Math.floor((e.clientY - rect.top) / size)
+  const i = (y + 1) * ctxWD + (x + 1)
 
-  currentPattern.value.value.forEach((offset) => {
-    if (i + offset < currentCellArray.value.length) {
-      currentCellArray.value[i + offset] = 1
+  const pattern = currentPattern.value.value
+  const current = currentCellArray.value
+  for (let p = 0; p < pattern.length; p++) {
+    const offset = pattern[p]
+    if (i + offset < current.length) {
+      current[i + offset] = 1
     }
-  })
+  }
 
   render()
   if (!isRunning.value)
@@ -233,9 +255,11 @@ function update() {
   const { nw, n, ne, w_le, e, sw, s, se } = offsetsAround
   const current = currentCellArray.value
   const next = cellArray.value
+  const h = ctxH.value
+  const w = ctxW.value
   let rowOffset = ctxWD
-  for (let y = 1; y <= ctxH; y++) {
-    for (let x = 1; x <= ctxW; x++) {
+  for (let y = 1; y <= h; y++) {
+    for (let x = 1; x <= w; x++) {
       const index = rowOffset + x
       const sum = current[index + nw] + current[index + n] + current[index + ne]
         + current[index + w_le] + current[index + e]
@@ -261,24 +285,40 @@ function render() {
   const locCtx = ctx.value
   if (!locCtx)
     return
+  const size = cellSize.value
+  const width = canvasW.value
+  const height = canvasH.value
+  const h = ctxH.value
+  const w = ctxW.value
   if (!imageData) {
-    imageData = locCtx.createImageData(ctxW, ctxH)
+    imageData = locCtx.createImageData(width, height)
     pixels32 = new Uint32Array(imageData.data.buffer)
   }
   const p32 = pixels32!
-  let rowOffset = ctxWD
-  let canvasOffset = 0
+  for (let y = 0; y < h; y++) {
+    const rowOffset = (y + 1) * ctxWD + 1
+    for (let x = 0; x < w; x++) {
+      const isAlive = current[rowOffset + x] === 1
+      const color = isAlive ? colorAlive : colorDead
 
-  for (let y = 1; y <= ctxH; y++) {
-    for (let x = 1; x <= ctxW; x++) {
-      p32[canvasOffset + (x - 1)] = current[rowOffset + x] === 1 ? colorAlive : colorDead
+      // Рисуем блок cellSize x cellSize
+      for (let sy = 0; sy < size; sy++) {
+        const canvasRowOffset = (y * size + sy) * width
+        for (let sx = 0; sx < size; sx++) {
+          p32[canvasRowOffset + (x * size + sx)] = color
+        }
+      }
     }
-    rowOffset += ctxWD
-    canvasOffset += ctxW
   }
 
   locCtx.putImageData(imageData, 0, 0)
 }
+
+watch(cellSize, () => {
+  imageData = null
+  pixels32 = null
+  render()
+})
 </script>
 
 <template>
@@ -295,18 +335,18 @@ function render() {
         вычисление с помощью побитовых операций вместо ветвления, отказ от функций в основном цикле и предрасчёт смещений позволили улучшить производительность в ~100 раз
       </div>
     </div>
-    <div class="flex flex-col gap-2 " :style="`max-width: ${ctxW + 8}px;`">
+    <div class="flex flex-col gap-2 " :style="`max-width: ${canvasW + 8}px;`">
       <div class="font-bold ">
         Холст
       </div>
 
-      <div class="border border-primary-500 rounded-xl bg-black p-1">
+      <div class="border border-primary-500 rounded-xl bg-black p-1 overflow-auto">
         <canvas
           id="automataCanvas"
           ref="canvasRef"
 
-          :width="ctxW"
-          :height="ctxH"
+          :width="canvasW"
+          :height="canvasH"
           @click="handleCanvasClick"
         />
       </div>
@@ -330,22 +370,49 @@ function render() {
         </div>
 
         <div class="flex gap-4">
-          <ElButton
-            type="primary"
-            class="w-full"
-            @click="handleRandom"
-          >
-            Случайно
-          </ElButton>
+          <div class="flex min-w-1/2">
+            <ElButton
+              type="primary"
+              class="w-full"
+              @click="handleRandom"
+            >
+              Случайно
+            </ElButton>
+            <ElButton
+              type="primary"
+              class="w-full"
+              @click="handleOdd"
+            >
+              Через одну
+            </ElButton>
+          </div>
           <ElSlider v-model="currentDensity" />
         </div>
-        <ElButton
-          class="w-full"
-          type="primary"
-          @click="handleClear"
-        >
-          Очистить
-        </ElButton>
+        <div class="flex gap-4">
+          <ElButton
+            class="min-w-1/2"
+            type="primary"
+            @click="handleClear"
+          >
+            Очистить
+          </ElButton>
+          <div class="flex w-full">
+            <ElButton
+              class="w-full"
+              type="primary"
+              @click="cellSize = 1"
+            >
+              Клетка х1
+            </ElButton>
+            <ElButton
+              class="w-full"
+              type="primary"
+              @click="cellSize = 4"
+            >
+              Клетка х4
+            </ElButton>
+          </div>
+        </div>
       </div>
     </div>
   </div>
