@@ -118,7 +118,7 @@ async function handleClickAny(
   })
 
   try {
-    Promise.any(promises)
+    await Promise.any(promises)
     add('succeed', 'Комбинатор Promise.any успех')
   }
   catch {

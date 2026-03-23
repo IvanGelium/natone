@@ -5,16 +5,14 @@ import { ElInput } from 'element-plus'
 const fieldRef = ref('')
 const debouncing = ref(false)
 
-// Функция для инициализации debounced-версии функции
 function useClosureDebounce<T extends (...args: any[]) => any>(
   callback: T,
   time: number,
 ) {
-  // Замыкание позволяет сохранять между вызовами замыкаемой функции id таймера
   let timerId: number
   return function (this: unknown, ...args: Parameters<T>) {
     debouncing.value = true
-    clearTimeout(timerId) // Если таймер уже есть, очищаем его
+    clearTimeout(timerId)
     timerId = setTimeout(() => callback.apply(this, args), time)
   }
 }

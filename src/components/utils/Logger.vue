@@ -35,7 +35,7 @@ watch(
 </script>
 
 <template>
-  <div ref="containerRef" class=" bg-black p-4 rounded-xl flex flex-col gap-2 overflow-auto">
+  <div ref="containerRef" style="scroll-behavior: smooth" class=" bg-black p-4  rounded-xl flex flex-col gap-2 overflow-auto">
     <div class="text-white font-bold">
       {{ name }}: {{ logs.length ? '' : 'пусто' }}
     </div>
