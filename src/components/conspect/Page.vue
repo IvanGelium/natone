@@ -25,5 +25,6 @@ const { content } = toRefs(props)
       <Mdblock content="### Конспект" />
       <Mdblock :content="content" />
     </div>
+    <div class="min-h-50" />
   </div>
 </template>
