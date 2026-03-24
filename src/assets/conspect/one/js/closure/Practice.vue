@@ -1,46 +1,31 @@
 <script setup lang="ts">
 import { Loading } from '@element-plus/icons-vue'
 import { ElInput } from 'element-plus'
+import { useDebounce } from '@/utils'
 
 const fieldRef = ref('')
-const debouncing = ref(false)
-
-function useClosureDebounce<T extends (...args: any[]) => any>(
-  callback: T,
-  time: number,
-) {
-  let timerId: number
-  return function (this: unknown, ...args: Parameters<T>) {
-    debouncing.value = true
-    clearTimeout(timerId)
-    timerId = setTimeout(() => callback.apply(this, args), time)
-  }
-}
-
 const regex = /^\d*$/
 const validation = ref<boolean>(true)
 function onlyNumberValidation(string: string): void {
   validation.value = regex.test(string)
-  debouncing.value = false
 }
 
-const debouncedValidation = useClosureDebounce(onlyNumberValidation, 500)
+const { isDebouncing, debounced: debouncedValidation } = useDebounce(onlyNumberValidation, 500)
 </script>
 
 <template>
   <div class="max-w-1/2 flex flex-col gap-4">
     <div class="flex flex-col gap-2">
       <div>
-        Debounce-хук
+        Debounce-композабл
       </div>
       <div>
-        Цель: Сделать хук, который будет дебаунсить переданную в него функцию
+        Цель: композабал, который будет дебаунсить переданную в него функцию
       </div>
       <div>
-        Результат: оборачиваем любую функцию в хук.
-        Внутри хука используем таймер и сохраняем id.
+        Результат: передаю функцию в композабл. Внутри используем таймер и сохраняем id.
         При каждом вызове функции, проверяем тикает ли текущий таймер, если да, очищаем его и вызываем новый.
-        Когда таймер кончится, вызываем функцию.
+        Когда таймер кончится, вызываем переданную функцию.
       </div>
     </div>
     <div class=" flex flex-col gap-4">
@@ -49,7 +34,7 @@ const debouncedValidation = useClosureDebounce(onlyNumberValidation, 500)
           Введите только цифры
         </span>
         <span>
-          <Loading v-if="debouncing" class="animate-spin h-6" />
+          <Loading v-if="isDebouncing" class="animate-spin h-6" />
         </span>
       </div>
 

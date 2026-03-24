@@ -72,11 +72,8 @@ export function useLogger(): {
   }
 }
 
-// Насколько хук может быть сложным, это же просто дебаунс
-// Дебаунс:
-
 /**
- * Vue-composable для создания дебаунс-функции с поддержкой Promise и реактивным состоянием.
+ * Vue-composable для создания дебаунс-функции.
  *
  * @param callback - Асинхронная или синхронная функция, которую нужно выполнить.
  * @param delay - Задержка в миллисекундах.
@@ -178,5 +175,10 @@ export function useDebounce<T extends (...args: any[]) => any>(
   }
 
   onUnmounted(cancel)
-  return { debounced, isDebouncing, cancel, flush }
+  return {
+    debounced,
+    isDebouncing,
+    cancel,
+    flush,
+  }
 }

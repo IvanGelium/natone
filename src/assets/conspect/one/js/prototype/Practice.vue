@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { ElRadio } from 'element-plus'
-
-const protoType = ref('number')
-
+type Types = 'number' | 'string' | 'array' | 'function' | 'object' | 'class'
+const protoType = ref<Types>('number')
 function getChain(prim: any) {
   let proto = Object.getPrototypeOf(new Object(prim))
   const chain = []
@@ -20,7 +18,7 @@ class Chain extends Example { }
 
 class Prototype extends Chain {}
 
-function getType(t) {
+function getType(t: Types) {
   switch (t) {
     case 'number':
       return Number.NaN
@@ -36,6 +34,18 @@ function getType(t) {
       return new Prototype()
   }
 }
+
+const customMethodName = ref('sayHello')
+const isApplied = ref(false)
+
+function applyToPrototype() {
+  (String.prototype as any)[customMethodName.value] = function () {
+    return `Привет, я строка. Мой контент: "${this}"`
+  }
+  isApplied.value = true
+}
+
+const testString = ref('Vue JS')
 </script>
 
 <template>
@@ -69,10 +79,21 @@ function getType(t) {
       {{ getChain(getType(protoType)) }}
     </div>
   </div>
-</template>
+  <div class="mt-8 rounded shadow-sm">
+    <h3 class="font-bold mb-2" />
+    <p>Добавь метод в <code>String.prototype</code>:</p>
 
-<style scoped>
-  .elradio {
-  background-color: var(--color-primary-500);
-}
-</style>
+    <div class="flex gap-2 mb-4">
+      <el-input v-model="customMethodName" placeholder="Имя метода" />
+      <el-button type="primary" @click="applyToPrototype">
+        Внедрить
+      </el-button>
+    </div>
+
+    <div v-if="isApplied" class="bg-primary-200 p-2 rounded">
+      <p>Теперь всем строкам доступен метод: <code>.{{ customMethodName }}()</code></p>
+      <code>"{{ testString }}".{{ customMethodName }}()  => </code>
+      <b>{{ (testString as any)[customMethodName]() }}</b>
+    </div>
+  </div>
+</template>
