@@ -16,8 +16,8 @@ const { chapters, currentPage } = toRefs(props)
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <div class=" p-4 text-sm uppercase rounded-t-2xl bg-primary-50 tracking-wide text-secondary border border-primary-200">
+  <div class="flex flex-col overflow-auto">
+    <div class="sticky z-10 p-4 text-sm uppercase rounded-t-2xl bg-primary-50 tracking-wide text-secondary border border-primary-200">
       Разделы
     </div>
     <aside class="overflow-scroll min-h-0 rounded-b-2xl border border-primary-200 bg-secondary p-4 shadow-sm">

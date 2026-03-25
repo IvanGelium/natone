@@ -1,10 +1,25 @@
 <script setup lang="ts">
+import type { Component } from 'vue'
+import { pagesGit } from '../assets/conspect/one/git.ts'
 import { pagesJs } from '../assets/conspect/one/js.ts'
 import { pagesTs } from '../assets/conspect/one/ts.ts'
 import Navigation from '../components/conspect/Navigation.vue'
 import Page from '../components/conspect/Page.vue'
 import Header from '../components/conspect/PageHeader.vue'
 import { getDocUrl } from '../utils.ts'
+
+interface PageType {
+  title: string
+  path: string
+  content: string
+  practice: Component | null
+}
+
+interface ChapterType {
+  title: string
+  path: string
+  pages: PageType[]
+}
 
 const currentStage = {
   path: 'one',
@@ -16,7 +31,7 @@ const headerData = {
 
 const mainToConspectPath = 'blob/main/src/assets/conspect'
 
-const stageOne = [
+const stageOne: ChapterType[] = [
   {
     title: 'JavaScript',
     path: 'js',
@@ -30,7 +45,7 @@ const stageOne = [
   {
     title: 'GIT',
     path: 'git',
-    pages: [],
+    pages: pagesGit,
   },
 ]
 
