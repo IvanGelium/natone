@@ -1,15 +1,32 @@
 <script setup lang="ts">
+import { ArrowRightBold } from '@element-plus/icons-vue'
+
 type Types = 'number' | 'string' | 'array' | 'function' | 'object' | 'class'
 const protoType = ref<Types>('number')
+const chain = computed(() => getChain(getType(protoType.value)))
 function getChain(prim: any) {
   let proto = Object.getPrototypeOf(new Object(prim))
   const chain = []
 
   while (proto) {
-    chain.push(proto.constructor.name)
+    const allProps = Object.getOwnPropertyNames(proto)
+    const methods = allProps.filter((prop) => {
+      try {
+        return typeof proto[prop] === 'function'
+      }
+      catch {
+        return false
+      }
+    })
+
+    chain.push({
+      name: proto.constructor.name,
+      methods: methods.sort(),
+    })
     proto = Object.getPrototypeOf(proto)
   }
-  return `${chain.join(' -> ')} -> null`
+
+  return chain
 }
 
 class Example {}
@@ -75,25 +92,44 @@ const testString = ref('Vue JS')
     <div>
       Вычисляемая строка в которой записана цепочка прототипов выбранного типа:
     </div>
-    <div>
-      {{ getChain(getType(protoType)) }}
+    <div class="flex gap-2 p-2">
+      <div v-for="(val, index) in chain" :key="`${index}-${val.name}`">
+        <div class="flex flex-col">
+          <div class="flex gap-2 items-center">
+            <div class=" bg-primary-200 p-2 rounded border border-primary-300">
+              <p class="font-bold">
+                {{ val.name }}
+              </p>
+              <div class="max-h-100 overflow-auto">
+                <p class="text-sm">
+                  Методы:
+                </p>
+                <div v-for="(method, i) in val.methods" :key="`${i}-${method}`" class="flex flex-col text-xs">
+                  {{ method }}
+                </div>
+              </div>
+            </div>
+            <ArrowRightBold v-if="chain.length - 1 !== index" class="h-5" />
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="mt-8 rounded shadow-sm">
-    <h3 class="font-bold mb-2" />
-    <p>Добавь метод в <code>String.prototype</code>:</p>
+    <div class="mt-8 rounded shadow-sm">
+      <h3 class="font-bold mb-2" />
+      <p>Добавлкение нового метода в <code>String.prototype</code>:</p>
 
-    <div class="flex gap-2 mb-4">
-      <el-input v-model="customMethodName" placeholder="Имя метода" />
-      <el-button type="primary" @click="applyToPrototype">
-        Внедрить
-      </el-button>
-    </div>
+      <div class="flex gap-2 mb-4">
+        <el-input v-model="customMethodName" placeholder="Имя метода" />
+        <el-button type="primary" @click="applyToPrototype">
+          Внедрить
+        </el-button>
+      </div>
 
-    <div v-if="isApplied" class="bg-primary-200 p-2 rounded">
-      <p>Теперь всем строкам доступен метод: <code>.{{ customMethodName }}()</code></p>
-      <code>"{{ testString }}".{{ customMethodName }}()  => </code>
-      <b>{{ (testString as any)[customMethodName]() }}</b>
+      <div v-if="isApplied" class="bg-primary-200 p-2 rounded">
+        <p>Теперь всем строкам доступен метод: <code>.{{ customMethodName }}()</code></p>
+        <code>"{{ testString }}".{{ customMethodName }}()  => </code>
+        <b>{{ (testString as any)[customMethodName]() }}</b>
+      </div>
     </div>
   </div>
 </template>

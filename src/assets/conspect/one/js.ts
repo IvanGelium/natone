@@ -1,4 +1,5 @@
 import { asyncAndAwaitData } from './js/asyncAndAwait/asyncAndAwait.ts'
+import { bonusBasicOptimData } from './js/bonusBasicOptim/bonusBasicOptim.ts'
 import { closureData } from './js/closure/closure.ts'
 import { collectionData } from './js/collection/collection.ts'
 import { eventLoopData } from './js/eventLoop/eventLoop.ts'
@@ -18,4 +19,5 @@ export const pagesJs = [
   immutData,
   collectionData,
   readbleData,
+  bonusBasicOptimData,
 ]
