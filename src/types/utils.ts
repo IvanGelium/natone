@@ -16,3 +16,31 @@ export interface FakeFetchConfig<T> {
   /** Коллбэк для логирования процесса выполнения */
   onLog?: (type: LogMessageType, message: string) => void
 }
+
+export type FakeUserRole = 'admin' | 'user' | 'guest'
+
+export interface FakeProject {
+  id: number
+  title: string
+}
+
+export interface FakeUser {
+  id: number
+  name: string
+  role: FakeUserRole
+  isActive: boolean
+  projectId: number[]
+}
+
+export class FakeDataType {
+  public users: FakeUser[] = []
+  public projects: FakeProject[] = []
+}
+
+export interface ApiResponse<T> {
+  status: 'ok' | 'error'
+  code: number
+  data?: T
+  message?: string
+  error?: string
+}

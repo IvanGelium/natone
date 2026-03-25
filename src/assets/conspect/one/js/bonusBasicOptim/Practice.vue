@@ -332,7 +332,7 @@ watch(cellSize, () => {
         Холст
       </div>
 
-      <div class="border border-primary-500 rounded-xl bg-black p-1 overflow-auto">
+      <div class="cursor-pointer border border-primary-500 rounded-xl bg-black p-1 overflow-auto">
         <canvas
           id="automataCanvas"
           ref="canvasRef"
