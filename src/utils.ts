@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { ApiResponse, FakeFetchConfig, FakeProject, FakeUser, FakeUserRole, LogMessage, LogMessageType } from '@/types/utils'
+import type { FakeFetchConfig, FakeProject, FakeUser, FakeUserRole, LogMessage, LogMessageType } from '@/types/utils'
 import { onUnmounted, ref } from 'vue'
 
 export function codeBlock(content: string): string {
@@ -11,38 +11,6 @@ export function getDocUrl(path: string): string {
   const base = import.meta.env.VITE_GITHUB_REPO_URL
   return `${base}/${path}`
 }
-
-// export function fakeFetch<T = string>(
-//   id: number | string,
-//   config: FakeFetchConfig<T> = {},
-// ): Promise<T> {
-//   const {
-//     delay = Math.floor(Math.random() * 5000),
-//     shouldFail = false,
-//     onLog,
-//     returnData = `Запрос ${id} завершен успешно.` as unknown as T,
-//   } = config
-
-//   onLog?.('start', `Запрос ${id} отправлен, задержка ${delay} мс`)
-
-//   return new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//       if (shouldFail) {
-//         onLog?.(
-//           'error',
-//           `Запрос ${id} упал.`,
-
-//         )
-//         reject(new Error(`Запрос ${id} упал.`))
-//       }
-//       else {
-//         onLog?.('succeed', `Запрос ${id} завершен успешно.`,
-//         )
-//         resolve(returnData)
-//       }
-//     }, delay)
-//   })
-// }
 
 /**
  * Выполняет фейковый запрос к серверу.
@@ -58,7 +26,7 @@ export function fakeFetch<T = string>(
   config: FakeFetchConfig<T> = {},
 ): Promise<Response> {
   const {
-    delay = Math.floor(Math.random() * 2000),
+    delay = Math.floor(Math.random() * 5000),
     shouldFail = false,
     onLog,
     returnData = `Запрос ${id} завершен успешно.` as unknown as T,
@@ -75,13 +43,13 @@ export function fakeFetch<T = string>(
 
   onLog?.('start', `Запрос ${id} отправлен, задержка ${delay} мс`)
 
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (shouldFail) {
         const code = failCodes[Math.floor(Math.random() * failCodes.length)]
         onLog?.('error', `Запрос ${id} упал с кодом ${code}`)
 
-        resolve(new Response(JSON.stringify({ status: 'error', message: httpErrorMessages[code] }), {
+        reject(new Response(JSON.stringify({ status: 'error', message: httpErrorMessages[code] }), {
           status: code,
           statusText: 'Error',
           headers: { 'Content-Type': 'application/json' },
@@ -232,7 +200,7 @@ export function useDebounce<T extends (...args: any[]) => any>(
 
 export class FakeData {
   constructor(length: number = Math.floor(Math.random() * 10)) {
-    this.projects = this.genProjects(10)
+    this.projects = this.genProjects(20)
     this.users = this.genUsers(length)
   }
 
@@ -260,7 +228,7 @@ export class FakeData {
 
     this.projects = Array.from({ length }).map(() => ({
       id: this._generateUniqueId(),
-      title: `${this._getRandom(titles)} ${this._getRandom(subtitles)}}`,
+      title: `${this._getRandom(titles)} ${this._getRandom(subtitles)}`,
     }))
 
     return this.projects

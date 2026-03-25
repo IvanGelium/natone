@@ -127,5 +127,5 @@ export const utilityTypesData = {
   path,
   title,
   content: paragraph,
-  practice: Practice,
+  practice: null,
 }

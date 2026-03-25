@@ -73,5 +73,5 @@ export const genericsData = {
   path,
   title,
   content: paragraph,
-  practice: Practice,
+  practice: null,
 }

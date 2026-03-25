@@ -36,11 +36,3 @@ export class FakeDataType {
   public users: FakeUser[] = []
   public projects: FakeProject[] = []
 }
-
-export interface ApiResponse<T> {
-  status: 'ok' | 'error'
-  code: number
-  data?: T
-  message?: string
-  error?: string
-}

@@ -143,25 +143,25 @@ async function handleClickAny(
     <div class="flex gap-8 w-full">
       <div class="flex flex-col gap-2 w-full">
         <p class="font-bold">
-          Демонстрация Promise.all
+          Демо Promise.all
         </p>
         <Combinator @clicked="(add, clear, shouldFail) => handleClickAll(add, clear, shouldFail)" />
       </div>
       <div class="flex flex-col gap-2 w-full">
         <p class="font-bold">
-          Демонстрация Promise.allSettled
+          Демо Promise.allSettled
         </p>
         <Combinator @clicked="handleClickAllSettled" />
       </div>
       <div class="flex flex-col gap-2 w-full">
         <p class="font-bold">
-          Демонстрация Promise.Race
+          Демо Promise.race
         </p>
         <Combinator @clicked="handleClickRace" />
       </div>
       <div class="flex flex-col gap-2 w-full">
         <p class="font-bold">
-          Демонстрация Promise.Any
+          Демо Promise.any
         </p>
         <Combinator @clicked="handleClickAny" />
       </div>

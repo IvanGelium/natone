@@ -131,5 +131,5 @@ export const typeGuardsData = {
   path,
   title,
   content: paragraph,
-  practice: Practice,
+  practice: null,
 }

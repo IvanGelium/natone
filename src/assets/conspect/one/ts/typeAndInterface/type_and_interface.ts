@@ -90,5 +90,5 @@ export const typeAndInterfaceData = {
   path,
   title,
   content: paragraph,
-  practice: Practice,
+  practice: null,
 }

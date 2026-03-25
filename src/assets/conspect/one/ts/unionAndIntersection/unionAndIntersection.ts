@@ -65,5 +65,5 @@ export const unionAndIntersectionData = {
   path,
   title,
   content: paragraph,
-  practice: Practice,
+  practice: null,
 }

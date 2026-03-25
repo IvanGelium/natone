@@ -84,7 +84,7 @@ function handleChangePage(chapterIndex: number, pageIndex: number) {
           </div>
         </div>
         <div class="flex-1 min-h-0 overflow-y-auto px-6 py-6">
-          <Page :content="currentPage.content" :link="currentLink">
+          <Page :practice="!!currentPage.practice" :content="currentPage.content" :link="currentLink">
             <template v-if="currentPage.practice" #practice>
               <component :is="currentPage.practice" />
             </template>

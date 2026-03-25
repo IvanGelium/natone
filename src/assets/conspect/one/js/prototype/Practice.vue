@@ -90,7 +90,7 @@ const testString = ref('Vue JS')
       </el-radio-group>
     </div>
     <div>
-      Вычисляемая строка в которой записана цепочка прототипов выбранного типа:
+      Вывод данных о цепочках прототипов для разных типов JS:
     </div>
     <div class="flex gap-2 p-2">
       <div v-for="(val, index) in chain" :key="`${index}-${val.name}`">
