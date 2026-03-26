@@ -2,8 +2,18 @@ import type { Ref } from 'vue'
 import type { FakeFetchConfig, FakeProject, FakeUser, FakeUserRole, LogMessage, LogMessageType } from '@/types/utils'
 import { onUnmounted, ref } from 'vue'
 
-export function codeBlock(content: string): string {
-  return `\`\`\`javascript${content}\`\`\`
+type Lang = 'TS' | 'JS' | 'CNS' | 'TXT' | 'SH'
+export function codeBlock(content: string, lang: Lang = 'TS'): string {
+  const langs = new Map<Lang, string>([
+    ['TS', 'typescript'],
+    ['JS', 'javascript'],
+    ['CNS', 'console'],
+    ['TXT', 'text'],
+    ['SH', 'bash'],
+  ])
+  const langName = langs.get(lang) || 'text'
+
+  return `\`\`\`${langName}${content}\`\`\`
   `
 }
 
